@@ -1,0 +1,32 @@
+name: build
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  checksecret:
+    name: Check secret availability
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check if I can read secret
+        env:
+          SUPERSECRETSECRET: ${{ secrets.SUPERSECRETSECRET }}
+        run: |
+          if [[ ! -v SUPERSECRETSECRET ]]; then
+            echo "SUPERSECRETSECRET is not set"
+          elif [[ -z "$SUPERSECRETSECRET" ]]; then
+            echo "SUPERSECRETSECRET is set to the empty string"
+          else
+            echo "SUPERSECRETSECRET has a value"
+          fi
+
+          if [[ "$SUPERSECRETSECRET" != "42" ]]; then
+            echo "SUPERSECRETSECRET has the wrong value"
+            exit 1
+          fi
+
+
+
