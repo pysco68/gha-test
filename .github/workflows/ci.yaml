@@ -14,6 +14,7 @@ jobs:
         env:
           SUPERSECRETSECRET: ${{ secrets.SUPERSECRETSECRET }}
         run: |
+          echo "Damien contributed here"
           if [[ ! -v SUPERSECRETSECRET ]]; then
             echo "SUPERSECRETSECRET is not set"
           elif [[ -z "$SUPERSECRETSECRET" ]]; then
